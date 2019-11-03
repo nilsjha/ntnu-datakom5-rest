@@ -53,7 +53,7 @@ public class TaskRunner {
      */
     public void step1Hello() {
         JSONObject jsonHello = new JSONObject();
-        jsonHello.put("sessionID",sessionId);
+        jsonHello.put("sessionId",sessionId);
         jsonHello.put("msg","Hello");
         String helloPostResponse = rest1.send("dkrest/solve",jsonHello.toString());
         System.out.println(helloPostResponse);
