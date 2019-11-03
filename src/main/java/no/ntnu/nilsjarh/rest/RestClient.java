@@ -25,14 +25,14 @@ public class RestClient {
          * @return true if successful, otherwise false
          */
         public String send(String getDir) {
-                boolean success = true;
+                boolean cts = true;
                 String response = null;
                 // check that all of the required elements are ready for tx
                 if (this.endpointUrl == null) {
                         System.err.println("Endpoint URL not set, ignoring...");
-                        success = false;
+                        cts = false;
                 }
-                if (success) {
+                if (cts) {
                         try  {
                                 String url = this.endpointUrl + getDir;
                                 URL urlObj = new URL(url);
