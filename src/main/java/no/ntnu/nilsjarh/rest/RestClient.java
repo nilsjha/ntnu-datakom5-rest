@@ -78,23 +78,22 @@ public class RestClient {
                         try  {
                                 String url = this.endpointUrl + postDir;
                                 URL urlObj = new URL(url);
-                                HttpURLConnection httpConn =
+                                HttpURLConnection httpPost=
                                     (HttpURLConnection) urlObj.openConnection();
                                 
-                                httpConn.setRequestMethod("POST");
-                                httpConn.setRequestProperty("Content-Type",
-                                    "application/json");
-                                httpConn.setDoOutput(true);
+                                // Add POST-specific parameters to httpPost
+                                httpPost = setConnectionSettings("POST",
+                                    httpPost);
         
-                                OutputStream out = httpConn.getOutputStream();
+                                OutputStream out = httpPost.getOutputStream();
                                 out.write(jsonPayload.getBytes());
                                 out.flush();
                                 
-                                int status = httpConn.getResponseCode();
+                                int status = httpPost.getResponseCode();
                                 
                                 /* http 200 == OK */
                                 if (status == 200) {
-                                    InputStream in = httpConn.getInputStream();
+                                    InputStream in = httpPost.getInputStream();
                                     String responseBody =
                                         convertStreamToString(in);
                                         in.close();
@@ -113,6 +112,30 @@ public class RestClient {
                 return response;
         }
         
+        /**
+         * Sets required method properties to a speficil HttpURLConnection
+         * object
+         * @param method Type of connection, must be POST or GET
+         * @param http The connection to write properties to
+         * @return Return of http param, now with POST/GET properties
+         */
+        private HttpURLConnection setConnectionSettings(String method,
+                                                  HttpURLConnection http) {
+                HttpURLConnection connection;
+                if (method.equals("POST")) {
+                        try {
+                                http.setRequestMethod(method);
+                                http.setRequestProperty("Content-Type",
+                                    "application/json");
+                                http.setDoOutput(true);
+                        } catch (ProtocolException e) {
+                                e.printStackTrace();
+                        }
+                } else if (method.equals("GET")) {
+                
+                }
+                return http;
+        }
         
         
         /**
