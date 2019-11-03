@@ -41,9 +41,9 @@ public class TaskRunner {
             System.out.println("Grabbed sessionID:"
                 + sessionId + " and userId:" + userId + " successfully!");
         } else {
-            System.out.println("Auth failed");
+            System.out.println("Auth failed, see response for details: ");
+            System.out.println(authResponse);
         }
-        System.out.println(authResponse);
         
     }
 }
