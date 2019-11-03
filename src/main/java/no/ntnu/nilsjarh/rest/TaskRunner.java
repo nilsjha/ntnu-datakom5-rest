@@ -28,7 +28,7 @@ public class TaskRunner {
     }
     
     /**
-     *  STEP 1 Authorize
+     *  STEP 0 Authorize
       */
     public void authorize() {
         String authJson;
@@ -46,7 +46,17 @@ public class TaskRunner {
             System.out.println("Auth failed, see response for details: ");
             System.out.println(authResponse);
         }
-        
+    }
+    
+    /**
+     *  STEP 1 - Send hello
+     */
+    public void step1Hello() {
+        JSONObject jsonHello = new JSONObject();
+        jsonHello.put("sessionID",sessionId);
+        jsonHello.put("msg","Hello");
+        String helloPostResponse = rest1.send("dkrest/solve",jsonHello.toString());
+        System.out.println(helloPostResponse);
     }
     
     public boolean askForTask(int taskNumber) {
