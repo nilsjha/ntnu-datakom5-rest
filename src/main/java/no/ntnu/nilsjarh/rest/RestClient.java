@@ -1,9 +1,6 @@
 package no.ntnu.nilsjarh.rest;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
@@ -47,6 +44,59 @@ public class RestClient {
                                             httpConn.getInputStream();
                                         String responseBody =
                                             convertStreamToString(in);
+                                        in.close();
+                                        response = responseBody;
+                                }
+                                
+                        } catch (ProtocolException e) {
+                                e.printStackTrace();
+                                return null;
+                        } catch (IOException e) {
+                                e.printStackTrace();
+                                return null;
+                        }
+                        
+                }
+                return response;
+        }
+        /**
+         * This method sends HTTP POST requests and returns the result
+         * @param postDir root directory for POST request
+         * @param jsonPayload JSON-encoded payload to POST
+         * @return the result encapsulated as string
+         */
+        public String send(String postDir, String jsonPayload) {
+                boolean cts = true;
+                String response = null;
+                // check that all of the required elements are ready for tx
+                if (this.endpointUrl == null || jsonPayload == "" || jsonPayload=="") {
+                        System.err.println("Endpoint URL or JSON not set, " +
+                            "ignoring...");
+                        cts = false;
+                }
+                if (cts) {
+                        try  {
+                                String url = this.endpointUrl + postDir;
+                                URL urlObj = new URL(url);
+                                HttpURLConnection httpConn =
+                                    (HttpURLConnection) urlObj.openConnection();
+                                
+                                httpConn.setRequestMethod("POST");
+                                httpConn.setRequestProperty("Content-Type",
+                                    "application/json");
+                                httpConn.setDoOutput(true);
+        
+                                OutputStream out = httpConn.getOutputStream();
+                                out.write(jsonPayload.getBytes());
+                                out.flush();
+                                
+                                int status = httpConn.getResponseCode();
+                                
+                                /* http 200 == OK */
+                                if (status == 200) {
+                                    InputStream in = httpConn.getInputStream();
+                                    String responseBody =
+                                        convertStreamToString(in);
                                         in.close();
                                         response = responseBody;
                                 }
