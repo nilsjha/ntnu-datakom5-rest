@@ -30,12 +30,17 @@ public class TaskRunner {
       */
     public void authorize() {
         String authJson;
+        boolean success;
         json1.put("email",mail);
         json1.put("phone",phone);
-        authJson = json1.toString();
-        String authResponse = rest1.send("dkrest/auth",authJson);
-        sessionId = parser1.extractInt(authResponse,"sessionId");
-        userId = parser1.extractInt(authResponse,"userId");
+        String authResponse = rest1.send("dkrest/auth",json1.toString());
+        success = parser1.extractBoolean(authResponse,"success");
+        if (success) {
+            sessionId = parser1.extractInt(authResponse,"sessionId");
+            userId = parser1.extractInt(authResponse,"userId");
+        } else {
+            System.out.println("Auth failed");
+        }
         System.out.println(authResponse);
         
     }
