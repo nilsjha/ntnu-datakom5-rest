@@ -82,7 +82,7 @@ public class RestClient {
                                     (HttpURLConnection) urlObj.openConnection();
                                 
                                 // Add POST-specific parameters to httpPost
-                                httpPost = setConnectionSettings("POST",
+                                httpPost = setSettings("POST",
                                     httpPost);
         
                                 OutputStream out = httpPost.getOutputStream();
@@ -119,8 +119,8 @@ public class RestClient {
          * @param http The connection to write properties to
          * @return Return of http param, now with POST/GET properties
          */
-        private HttpURLConnection setConnectionSettings(String method,
-                                                  HttpURLConnection http) {
+        private HttpURLConnection setSettings(String method,
+                                          HttpURLConnection http) {
                 HttpURLConnection connection;
                 if (method.equals("POST")) {
                         try {
