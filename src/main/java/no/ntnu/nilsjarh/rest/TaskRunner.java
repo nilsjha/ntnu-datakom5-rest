@@ -6,6 +6,8 @@ import org.json.JSONObject;
  *  The taskrunner class runs the different tasks for this assignment
  */
 public class TaskRunner {
+    private boolean debug = false;   // Enable verbose debugging
+    
     private JSONObject json1;
     private RestClient rest1;
     private JsonParser parser1;
@@ -45,5 +47,28 @@ public class TaskRunner {
             System.out.println(authResponse);
         }
         
+    }
+    
+    public boolean askForTask(int taskNumber) {
+        String response;
+        int checkTaskNumber = -1;
+        if ((1 <= taskNumber) && (taskNumber <= 4)) {
+            JSONObject jsonAsk = new JSONObject();
+            response = rest1.send("dkrest/gettask/"
+                + taskNumber + "?sessionId=" + sessionId);
+            checkTaskNumber = parser1.extractInt(response,"taskNr");
+           
+            if (App.debug) {
+                System.out.println(response);
+                System.out.println(checkTaskNumber);
+            }
+        }
+        System.out.print("Asking for task "+ taskNumber +"...");
+        if (taskNumber == checkTaskNumber) {
+            System.out.println(" OK!");
+            return true;
+        }else  {
+            return false;
+        }
     }
 }
