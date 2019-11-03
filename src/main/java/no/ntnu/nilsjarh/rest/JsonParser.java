@@ -50,14 +50,12 @@ public class JsonParser {
         Random randA = new Random();
         Random randB = new Random();
         Random randC = new Random();
-        int a = randA.nextInt();
-        int b = randB.nextInt();
-        int c = randC.nextInt();
+        int a = randA.nextInt((100) +1);
+        int b = randB.nextInt((100) +1);
         
         JSONObject abcRandJson = new JSONObject();
         abcRandJson.put("a",a);
         abcRandJson.put("b",b);
-        abcRandJson.put("c",c);
         
         return abcRandJson.toString();
     }
