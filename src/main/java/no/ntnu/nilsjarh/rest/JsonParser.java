@@ -2,6 +2,7 @@ package no.ntnu.nilsjarh.rest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.Random;
 
 public class JsonParser {
@@ -54,6 +55,14 @@ public class JsonParser {
             System.err.println("Unable to parse JSON: " + e.getMessage());
             return false;
         }
+    }
+    
+    /**
+     * WIP get to return the arguments for store in Task runner
+     */
+    public String[] extractStringArray(String jsonInput, String key) {
+        JSONObject stringJsonObj = new JSONObject(jsonInput);
+        return stringJsonObj.getEnum(String[Array], key);
     }
     
     /**

@@ -20,6 +20,8 @@ public class TaskRunner {
     private int sessionId;
     private int userId;
     
+    private String[] currentTaskArgs;
+    
     public TaskRunner() {
         json1 = new JSONObject();
         rest1 = new RestClient();
@@ -61,10 +63,11 @@ public class TaskRunner {
             response = rest1.send("dkrest/gettask/"
                 + taskNumber + "?sessionId=" + sessionId);
             checkTaskNumber = parser1.extractInt(response,"taskNr");
-           
-            if (App.debug) {
-                System.out.println(response);
-                System.out.println(checkTaskNumber);
+            
+            // WIP, extract the array if task2 is asked!
+            if (checkTaskNumber == 2) {
+                currentTaskArgs = parser1.extractString(response,"arguments");
+                System.out.println("ARGS STORED:" + currentTaskArgs);
             }
         }
         System.out.print("Asking for task "+ taskNumber +"...");
@@ -90,15 +93,15 @@ public class TaskRunner {
      * STEP 2 - Echo response
      */
     public void step2Echo() {
-        JSONObject jsonFromServer = new JSONObject();
-        JSONObject jsonEcho = new JSONObject();
-        jsonFromServer.put("sessionId", sessionId);
-        String serverResponse = rest1.send("dkrest/solve",jsonFromServer.toString());
-        System.out.println(serverResponse);
-        String theEcho = parser1.extractString(serverResponse,"msg");
-        jsonEcho.put("sessionId", sessionId);
-        jsonEcho.put("msg",theEcho);
-        String echoResponse = rest1.send("dkrest/solve",jsonEcho.toString());
-        System.out.println(echoResponse);
+        if (this.askForTask(2)) {
+            JSONObject jsonEcho = new JSONObject();
+            // WIP Return the echo with the correct arguments from array
+            String theEcho = currentTaskArgs;
+            System.out.println("ECHO: "+ theEcho);
+            jsonEcho.put("sessionId", sessionId);
+            jsonEcho.put("msg",theEcho);
+            String echoResponse = rest1.send("dkrest/solve",jsonEcho.toString());
+            System.out.println(echoResponse);
+        }
     }
 }
