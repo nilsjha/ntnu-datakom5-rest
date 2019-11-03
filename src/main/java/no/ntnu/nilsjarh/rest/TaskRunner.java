@@ -12,8 +12,8 @@ public class TaskRunner {
     private String host = "datakomm.work";
     private int port = 80;
     
-    private String phone = "9592222";
-    private String mail = "nisfsf@stud.ntnu.no";
+    private String phone = "95927996";
+    private String mail = "nilsjarh@stud.ntnu.no";
     
     private int sessionId;
     private int userId;
@@ -38,6 +38,8 @@ public class TaskRunner {
         if (success) {
             sessionId = parser1.extractInt(authResponse,"sessionId");
             userId = parser1.extractInt(authResponse,"userId");
+            System.out.println("Grabbed sessionID:"
+                + sessionId + " and userId:" + userId + " successfully!");
         } else {
             System.out.println("Auth failed");
         }
