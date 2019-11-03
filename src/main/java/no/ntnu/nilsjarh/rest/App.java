@@ -16,6 +16,10 @@ public class App {
         System.out.println(abcParse.extractInt(jsonAbc,"a"));
         System.out.println(abcParse.extractInt(jsonAbc,"b"));
         System.out.println(abcParse.extractInt(jsonAbc,"c"));
+        
+        String randomPost = abcParse.generateDemoAbcNumbers();
+        System.out.println("Sending POST: " + randomPost);
+        System.out.println(demo.send("dkrest/auth", randomPost));
     }
     
 }
