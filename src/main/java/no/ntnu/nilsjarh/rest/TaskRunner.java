@@ -85,4 +85,20 @@ public class TaskRunner {
         String helloPostResponse = rest1.send("dkrest/solve",jsonHello.toString());
         System.out.println(helloPostResponse);
     }
+    
+    /**
+     * STEP 2 - Echo response
+     */
+    public void step2Echo() {
+        JSONObject jsonFromServer = new JSONObject();
+        JSONObject jsonEcho = new JSONObject();
+        jsonFromServer.put("sessionId", sessionId);
+        String serverResponse = rest1.send("dkrest/solve",jsonFromServer.toString());
+        System.out.println(serverResponse);
+        String theEcho = parser1.extractString(serverResponse,"msg");
+        jsonEcho.put("sessionId", sessionId);
+        jsonEcho.put("msg",theEcho);
+        String echoResponse = rest1.send("dkrest/solve",jsonEcho.toString());
+        System.out.println(echoResponse);
+    }
 }
