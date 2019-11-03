@@ -27,9 +27,10 @@ public class App {
         TaskRunner assignment = new TaskRunner();
         assignment.authorize();
         // ask for task 1
-        boolean task1Ok = assignment.askForTask(1);
-        if (task1Ok) {
-            System.out.print("Got task 1");
+        boolean task1 = assignment.askForTask(1);
+        if (task1) {
+            System.out.println("Got task 1");
+            assignment.step1Hello();
         }
     }
 }
