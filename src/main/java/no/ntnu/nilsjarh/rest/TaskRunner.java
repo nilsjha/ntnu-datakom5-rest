@@ -26,10 +26,9 @@ public class TaskRunner {
         parser1 = new JsonParser();
         rest1.setEndpointUrl(host, port, false);
     }
-    
     /**
      *  STEP 0 Authorize
-      */
+     */
     public void authorize() {
         String authJson;
         boolean success;
@@ -47,18 +46,13 @@ public class TaskRunner {
             System.out.println(authResponse);
         }
     }
-    
     /**
-     *  STEP 1 - Send hello
+     *  This method asks the server to solve a task, and then verifies the
+     *  response from the server
+     * @param taskNumber The task to be executed
+     * @return TRUE if the server responds with the requested task, otherwise
+     * FALSE
      */
-    public void step1Hello() {
-        JSONObject jsonHello = new JSONObject();
-        jsonHello.put("sessionId",sessionId);
-        jsonHello.put("msg","Hello");
-        String helloPostResponse = rest1.send("dkrest/solve",jsonHello.toString());
-        System.out.println(helloPostResponse);
-    }
-    
     public boolean askForTask(int taskNumber) {
         String response;
         int checkTaskNumber = -1;
@@ -80,5 +74,15 @@ public class TaskRunner {
         }else  {
             return false;
         }
+    }
+    /**
+     *  STEP 1 - Send hello
+     */
+    public void step1Hello() {
+        JSONObject jsonHello = new JSONObject();
+        jsonHello.put("sessionId",sessionId);
+        jsonHello.put("msg","Hello");
+        String helloPostResponse = rest1.send("dkrest/solve",jsonHello.toString());
+        System.out.println(helloPostResponse);
     }
 }
