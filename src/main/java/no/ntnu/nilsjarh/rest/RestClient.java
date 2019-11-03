@@ -20,9 +20,9 @@ public class RestClient {
         }
         
         /**
-         * This method sends HTTP GET methods to the predefiend endpoint
+         * This method sends HTTP GET requests and returns the result
          * @param getDir root directory for GET request
-         * @return true if successful, otherwise false
+         * @return the result encapsulated as string
          */
         public String send(String getDir) {
                 boolean cts = true;
