@@ -7,15 +7,15 @@ public class App {
         // demo to datakomm.work
         RestClient demo = new RestClient();
         demo.setEndpointUrl("datakomm.work",80,false);
-        String getDemo1 = demo.send("dkrest/test/get");
-        String getDemo2 = demo.send("dkrest/test/get2");
-        System.out.println(getDemo1);
-        System.out.println(getDemo2);
-        JsonParser parser = new JsonParser();
-        int parsed = parser.extractInt(getDemo2,"a");
-        String sortedDemo2 = parser.sortJsonString(getDemo2);
-        System.out.println(sortedDemo2);
-        System.out.println(parsed);
+        System.out.println(demo.send("dkrest/test/get"));
+        
+
+        String jsonAbc = demo.send("dkrest/test/get2");
+        JsonParser abcParse = new JsonParser();
+        System.out.println(abcParse.sortJsonString(jsonAbc));
+        System.out.println(abcParse.extractInt(jsonAbc,"a"));
+        System.out.println(abcParse.extractInt(jsonAbc,"b"));
+        System.out.println(abcParse.extractInt(jsonAbc,"c"));
     }
     
 }
