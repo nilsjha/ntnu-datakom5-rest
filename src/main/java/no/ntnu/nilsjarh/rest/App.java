@@ -32,5 +32,6 @@ public class App {
             System.out.println("Got task 1");
             assignment.step1Hello();
         }
+        assignment.step2Echo();
     }
 }
