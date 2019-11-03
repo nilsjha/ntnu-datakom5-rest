@@ -46,16 +46,10 @@ public class JsonParser {
      * @return The extracted boolean value from JSON e.g. true/false
      */
     public boolean extractBoolean(String jsonInput, String key) {
-        String result;
         try {
             JSONObject jsonObj = new JSONObject(jsonInput);
-            result = jsonObj.getString(key);
-            if (result.equals("true")) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            // return the boolean value if successful
+            return jsonObj.getBoolean(key);
         } catch (JSONException e) {
             System.err.println("Unable to parse JSON: " + e.getMessage());
             return false;
