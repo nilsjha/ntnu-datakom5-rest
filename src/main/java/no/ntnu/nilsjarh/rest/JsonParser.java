@@ -5,6 +5,12 @@ import org.json.JSONObject;
 import java.util.Random;
 
 public class JsonParser {
+    /**
+     *  Get int from specified key in JSON-encoded string
+     * @param jsonInput The JSON-encoded string
+     * @param key the corresponding key in the JSON-encoded string
+     * @return The converted Integer
+     */
     public int extractInt(String jsonInput, String key) {
         int result = 0;
         try {
@@ -15,6 +21,13 @@ public class JsonParser {
         }
         return result;
     }
+    
+    /**
+     *  Get String from a specified key in a JSON-encoded string
+     * @param jsonInput The JSON-encoded string
+     * @param key the corresponding key to extract data from
+     * @return The converted String
+     */
     public String extractString(String jsonInput, String key) {
         String result = "";
         try {
@@ -60,10 +73,16 @@ public class JsonParser {
         return abcRandJson.toString();
     }
     
-    public String encodeSingleStringToJson(String key, String data) {
+    /**
+     *  encode a single string to a JSON-encoded object
+     * @param key String to identify the key
+     * @param data String to identify the keyed data
+     * @return The generated JSON-object
+     */
+    public JSONObject encodeSingleStringToJson(String key, String data) {
         JSONObject json = new JSONObject();
         json.put(key,data);
-        return json.toString();
+        return json;
     }
     
 }
