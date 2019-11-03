@@ -19,7 +19,7 @@ public class App {
         
         String randomPost = abcParse.generateDemoAbcNumbers();
         System.out.println("Sending POST: " + randomPost);
-        System.out.println(demo.send("dkrest/auth", randomPost));
+        System.out.println(demo.send("dkrest/test/post", randomPost));
     }
     
 }

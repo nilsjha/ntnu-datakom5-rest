@@ -62,4 +62,10 @@ public class JsonParser {
         return abcRandJson.toString();
     }
     
+    public String encodeSingleStringToJson(String key, String data) {
+        JSONObject json = new JSONObject();
+        json.put(key,data);
+        return json.toString();
+    }
+    
 }
