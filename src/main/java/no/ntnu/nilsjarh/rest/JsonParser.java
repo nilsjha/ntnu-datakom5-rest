@@ -40,6 +40,29 @@ public class JsonParser {
     }
     
     /**
+     *  Extract a boolean value from JSON-string and return this value
+     * @param jsonInput The JSON-encoded string
+     * @param key The key with the boolean value
+     * @return The extracted boolean value from JSON e.g. true/false
+     */
+    public boolean extractBoolean(String jsonInput, String key) {
+        String result;
+        try {
+            JSONObject jsonObj = new JSONObject(jsonInput);
+            result = jsonObj.getString(key);
+            if (result.equals("true")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        } catch (JSONException e) {
+            System.err.println("Unable to parse JSON: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    /**
      *  Sorts the JSON elements in an encoded string
      * @param jsonInput String with JSON-encoded elements
      * @return String with the JSON elements sorted alphabetically
