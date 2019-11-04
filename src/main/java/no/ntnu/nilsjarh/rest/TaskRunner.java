@@ -114,9 +114,9 @@ public class TaskRunner {
      */
     public void step4crackPin() {
         if (this.askForTask(4)) {
-            JSONObject jsonObj = new JSONObject();
-            System.out.print("MD5 hash");
-            System.out.println(currentTaskArgs.toString());
+            String md5Hash = parser1.extractStringFromArray(currentTaskArgs);
+            System.out.print("MD5 hash: ");
+            System.out.println(md5Hash);
         }
     }
     
