@@ -28,5 +28,6 @@ public class App {
         assignment.authorize();
         assignment.step1Hello();
         assignment.step2Echo();
+        assignment.step3Multiplication();
     }
 }
