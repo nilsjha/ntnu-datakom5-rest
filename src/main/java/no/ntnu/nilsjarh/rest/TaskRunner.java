@@ -180,13 +180,20 @@ public class TaskRunner {
      *  BONUS STEP - Extra task
      */
     public void stepExtra() {
-        this.askForTask(5);
+        // Invalid task# response, doing it manually
+        //this.askForTask(5);
+        String response = rest1.send("dkrest/gettask/"
+            + 5 + "?sessionId=" + sessionId);
+        
+        System.out.println("BONUSRESPONSE:");
+        System.out.println(response);
         JSONObject secretObj = new JSONObject();
-        double response = 4064256;
-        response = sqrt(response);
+        double sqNumber = 4064256;
+        sqNumber = sqrt(sqNumber);
+        int convertedInt = (int) sqNumber;
         secretObj.put("sessionId",sessionId);
-        secretObj.put("root",response);
-        System.out.println("BONUS:" + response + ", " + sessionId);
+        secretObj.put("result",convertedInt);
+        System.out.println(secretObj.toString());
         String stepBonusResponse = rest1.send("dkrest/solve",secretObj.toString());
         System.out.println(stepBonusResponse);
     }

@@ -32,6 +32,7 @@ public class App {
         assignment.step4crackPin();
         assignment.stepExtra();
         assignment.step5feedback();
-        System.out.println("USER: "+ assignment.getUserId() + ";" + assignment.getSessionId());
+        System.out.println("USER-ID:"+ assignment.getUserId());
+        System.out.println("SESSION-ID:" + assignment.getSessionId());
     }
 }
