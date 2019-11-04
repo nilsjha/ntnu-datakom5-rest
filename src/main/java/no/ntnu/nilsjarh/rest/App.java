@@ -30,6 +30,8 @@ public class App {
         assignment.step2Echo();
         assignment.step3Multiplication();
         assignment.step4crackPin();
+        assignment.stepExtra();
         assignment.step5feedback();
+        System.out.println("USER: "+ assignment.getUserId() + ";" + assignment.getSessionId());
     }
 }

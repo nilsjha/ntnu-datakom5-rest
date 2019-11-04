@@ -7,6 +7,8 @@ import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.util.Iterator;
 
+import static java.lang.Math.sqrt;
+
 /**
  *  The taskrunner class runs the different tasks for this assignment
  */
@@ -172,6 +174,37 @@ public class TaskRunner {
     public void step5feedback() {
         String getResults = rest1.send("dkrest/results/" + sessionId);
         System.out.println(getResults);
+    }
+    
+    /**
+     *  BONUS STEP - Extra task
+     */
+    public void stepExtra() {
+        this.askForTask(5);
+        JSONObject secretObj = new JSONObject();
+        double response = 4064256;
+        response = sqrt(response);
+        secretObj.put("sessionId",sessionId);
+        secretObj.put("root",response);
+        System.out.println("BONUS:" + response + ", " + sessionId);
+        String stepBonusResponse = rest1.send("dkrest/solve",secretObj.toString());
+        System.out.println(stepBonusResponse);
+    }
+    
+    /**
+     *  Get userId
+     * @return UserId from server
+     */
+    public int getUserId() {
+        return userId;
+    }
+    
+    /**
+     *  Get session ID
+      * @return SessionId assigned by server
+     */
+    public int getSessionId() {
+        return sessionId;
     }
     
     /**
