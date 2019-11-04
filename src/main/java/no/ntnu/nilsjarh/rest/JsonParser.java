@@ -1,8 +1,10 @@
 package no.ntnu.nilsjarh.rest;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
+import java.util.Iterator;
 import java.util.Random;
 
 public class JsonParser {
@@ -34,6 +36,19 @@ public class JsonParser {
         return result;
     }
     
+    /**
+     *  Returns a single string from all elements in an JSON-array
+     * @param array JSON-array to parse strings from
+     * @return Single string with contents of the array
+     */
+   public String extractStringFromArray(JSONArray array) {
+       Iterator<Object> hashIt = array.iterator();
+       StringBuilder sb = new StringBuilder();
+       while (hashIt.hasNext()) {
+           sb.append(hashIt.next().toString());
+       }
+       return sb.toString();
+   }
     /**
      *  Get String from a specified key in a JSON-encoded string
      * @param jsonInput The JSON-encoded string
