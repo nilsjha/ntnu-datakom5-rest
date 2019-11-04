@@ -30,5 +30,6 @@ public class App {
         assignment.step2Echo();
         assignment.step3Multiplication();
         assignment.step4crackPin();
+        assignment.step5feedback();
     }
 }

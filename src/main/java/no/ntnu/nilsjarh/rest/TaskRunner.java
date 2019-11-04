@@ -165,9 +165,14 @@ public class TaskRunner {
                     System.out.println(step3Response);
                 }
         }
-        
-        
-        
+    }
+    
+    /**
+     *  STEP 5 - Get the final results for this assignment
+     */
+    public void step5feedback() {
+        String getResults = rest1.send("dkrest/results/" + sessionId);
+        System.out.println(getResults);
     }
     
     /**
