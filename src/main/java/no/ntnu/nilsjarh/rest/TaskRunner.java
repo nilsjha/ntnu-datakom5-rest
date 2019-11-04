@@ -62,7 +62,6 @@ public class TaskRunner {
             System.out.println(helloPostResponse);
         }
     }
-    
     /**
      * STEP 2 - Echo response
      */
@@ -84,9 +83,15 @@ public class TaskRunner {
             System.out.println(echoResponse);
         }
     }
+    
+    /**
+     * STEP 3 - Multiplication
+     */
+    
+    
     /**
      *  This method asks the server to solve a task, and then verifies the
-     *  response from the server
+     *  response from the server, and extracts arguments to the related task
      * @param taskNumber The task to be executed
      * @return TRUE if the server responds with the requested task, otherwise
      * FALSE
@@ -101,10 +106,9 @@ public class TaskRunner {
             checkTaskNumber = parser1.extractInt(response,"taskNr");
             System.out.println("RESPONSE:" + response);
             
-            // TASK 2 ECHO - Store the arguments
-            if (checkTaskNumber == 2) {
-                JSONObject responseObj = parser1.generateJsonObject(response);
-                // Extract the array from the arguments key in JSON object
+            JSONObject responseObj = parser1.generateJsonObject(response);
+            // Check if the response has arguments, then put them in an array
+            if (responseObj.has("arguments")) {
                 currentTaskArgs = responseObj.getJSONArray("arguments");
                 System.out.println("ARGS STORED:" + currentTaskArgs);
             }
