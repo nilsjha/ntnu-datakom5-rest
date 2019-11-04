@@ -1,6 +1,9 @@
 package no.ntnu.nilsjarh.rest;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.Iterator;
 
 /**
  *  The taskrunner class runs the different tasks for this assignment
@@ -19,7 +22,7 @@ public class TaskRunner {
     private int sessionId;
     private int userId;
     
-    private String currentTaskArgs;
+    private JSONArray currentTaskArgs;
     
     public TaskRunner() {
         json1 = new JSONObject();
@@ -55,19 +58,20 @@ public class TaskRunner {
      * FALSE
      */
     public boolean askForTask(int taskNumber) {
-        String response;
+        // Set non-exisiting tasknumber, before server has responded.
         int checkTaskNumber = -1;
         if ((1 <= taskNumber) && (taskNumber <= 4)) {
             JSONObject jsonAsk = new JSONObject();
-            response = rest1.send("dkrest/gettask/"
+            String response = rest1.send("dkrest/gettask/"
                 + taskNumber + "?sessionId=" + sessionId);
             checkTaskNumber = parser1.extractInt(response,"taskNr");
             System.out.println("RESPONSE:" + response);
             
-            // WIP, extract the array if task2 is asked!
+            // TASK 2 ECHO - Store the arguments
             if (checkTaskNumber == 2) {
-                currentTaskArgs = parser1.extractString(response,"arguments");
-                currentTaskArgs = response.toString();
+                JSONObject responseObj = parser1.generateJsonObject(response);
+                // Extract the array from the arguments key in JSON object
+                currentTaskArgs = responseObj.getJSONArray("arguments");
                 System.out.println("ARGS STORED:" + currentTaskArgs);
             }
         }
@@ -95,10 +99,16 @@ public class TaskRunner {
      */
     public void step2Echo() {
         if (this.askForTask(2)) {
+            String theEcho;
             JSONObject jsonEcho = new JSONObject();
             // WIP Return the echo with the correct arguments from array
-            String theEcho = currentTaskArgs;
-            System.out.println("ECHO: "+ theEcho);
+            Iterator <Object> taskArgIterator = currentTaskArgs.iterator();
+            StringBuilder sb = new StringBuilder();
+            while (taskArgIterator.hasNext()) {
+                sb.append(taskArgIterator.next().toString());
+            }
+            theEcho = sb.toString();
+            System.out.println("PARSED ECHO: "+ theEcho);
             jsonEcho.put("sessionId", sessionId);
             jsonEcho.put("msg",theEcho);
             String echoResponse = rest1.send("dkrest/solve",jsonEcho.toString());

@@ -6,6 +6,17 @@ import java.lang.reflect.Array;
 import java.util.Random;
 
 public class JsonParser {
+    
+    /**
+     *  Creates a json object from a json.encoded string
+     * @param json JSON-encoded string
+     * @return The returned object
+     */
+    public JSONObject generateJsonObject(String json) {
+        JSONObject obj = new JSONObject(json);
+        return obj;
+    }
+    
     /**
      *  Get int from specified key in JSON-encoded string
      * @param jsonInput The JSON-encoded string
