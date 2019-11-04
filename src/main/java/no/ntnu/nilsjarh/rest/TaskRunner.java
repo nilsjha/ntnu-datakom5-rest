@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 
 /**
@@ -179,14 +178,12 @@ public class TaskRunner {
      *  This method asks the server to solve a task, and then verifies the
      *  response from the server, and extracts arguments to the related task
      * @param taskNumber The task to be executed
-     * @return TRUE if the server responds with the requested task, otherwise
+     * @return TRUE if the server responds with the requested # task, otherwise
      * FALSE
      */
     private boolean askForTask(int taskNumber) {
         // Set non-exisiting tasknumber, before server has responded.
         int checkTaskNumber = -1;
-        if ((1 <= taskNumber) && (taskNumber <= 4)) {
-            JSONObject jsonAsk = new JSONObject();
             String response = rest1.send("dkrest/gettask/"
                 + taskNumber + "?sessionId=" + sessionId);
             checkTaskNumber = parser1.extractInt(response,"taskNr");
@@ -198,7 +195,6 @@ public class TaskRunner {
                 currentTaskArgs = responseObj.getJSONArray("arguments");
                 System.out.println("ARGS STORED:" + currentTaskArgs);
             }
-        }
         System.out.print("Asking for task "+ taskNumber +"...");
         if (taskNumber == checkTaskNumber) {
             System.out.println(" OK!");
