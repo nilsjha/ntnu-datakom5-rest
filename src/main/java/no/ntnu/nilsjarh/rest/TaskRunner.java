@@ -112,6 +112,7 @@ public class TaskRunner {
      */
     public void step4crackPin() {
         if (this.askForTask(4)) {
+            JSONObject pinObj = new JSONObject();
             String md5Hash = parser1.extractStringFromArray(currentTaskArgs);
             System.out.print("MD5 hash: ");
             System.out.println(md5Hash);
@@ -136,10 +137,11 @@ public class TaskRunner {
                                 byte[] digest = md.digest();
                                 String foundHash = DatatypeConverter
                                     .printHexBinary(digest).toLowerCase();
-                                System.out.print(pin + ",");
-                                System.out.println(foundHash);
+                                //System.out.print(pin + ",");
+                                //System.out.println(foundHash);
                                 if (md5Hash.equals(foundHash)) {
-                                   System.out.print("OK");
+                                   System.out.print("OK hash:" + foundHash +
+                                       ";" + pin);
                                    correctPin = pin;
                                }
                             }
@@ -154,7 +156,17 @@ public class TaskRunner {
                 if (correctPin.equals("")) {
                     System.out.println("No match!");
             }
+                else {
+                    System.out.println("Found pin" + correctPin);
+                    pinObj.put("sessionId",sessionId);
+                    pinObj.put("pin",correctPin);
+                    String step3Response = rest1.send("dkrest/solve",
+                        pinObj.toString());
+                    System.out.println(step3Response);
+                }
         }
+        
+        
         
     }
     
