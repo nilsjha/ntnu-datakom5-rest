@@ -8,6 +8,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 
+import static java.lang.Math.sqrt;
+
 /**
  *  The taskrunner class runs the different tasks for this assignment
  */
@@ -176,6 +178,37 @@ public class TaskRunner {
     }
     
     /**
+     *  BONUS STEP - Extra task
+     */
+    public void stepExtra() {
+        this.askForTask(5);
+        JSONObject secretObj = new JSONObject();
+        double response = 4064256;
+        response = sqrt(response);
+        secretObj.put("sessionId",sessionId);
+        secretObj.put("root",response);
+        System.out.println("BONUS:" + response + ", " + sessionId);
+        String stepBonusResponse = rest1.send("dkrest/solve",secretObj.toString());
+        System.out.println(stepBonusResponse);
+    }
+    
+    /**
+     *  Get userId
+     * @return UserId from server
+     */
+    public int getUserId() {
+        return userId;
+    }
+    
+    /**
+     *  Get session ID
+      * @return SessionId assigned by server
+     */
+    public int getSessionId() {
+        return sessionId;
+    }
+    
+    /**
      *  This method asks the server to solve a task, and then verifies the
      *  response from the server, and extracts arguments to the related task
      * @param taskNumber The task to be executed
@@ -185,7 +218,7 @@ public class TaskRunner {
     private boolean askForTask(int taskNumber) {
         // Set non-exisiting tasknumber, before server has responded.
         int checkTaskNumber = -1;
-        if ((1 <= taskNumber) && (taskNumber <= 4)) {
+        if ((1 <= taskNumber) && (taskNumber <= 5)) {
             JSONObject jsonAsk = new JSONObject();
             String response = rest1.send("dkrest/gettask/"
                 + taskNumber + "?sessionId=" + sessionId);
