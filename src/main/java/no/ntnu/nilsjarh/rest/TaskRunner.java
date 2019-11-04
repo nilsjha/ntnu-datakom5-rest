@@ -6,7 +6,6 @@ import org.json.JSONObject;
  *  The taskrunner class runs the different tasks for this assignment
  */
 public class TaskRunner {
-    private boolean debug = false;   // Enable verbose debugging
     
     private JSONObject json1;
     private RestClient rest1;
@@ -20,7 +19,7 @@ public class TaskRunner {
     private int sessionId;
     private int userId;
     
-    private String[] currentTaskArgs;
+    private String currentTaskArgs;
     
     public TaskRunner() {
         json1 = new JSONObject();
@@ -63,10 +62,12 @@ public class TaskRunner {
             response = rest1.send("dkrest/gettask/"
                 + taskNumber + "?sessionId=" + sessionId);
             checkTaskNumber = parser1.extractInt(response,"taskNr");
+            System.out.println("RESPONSE:" + response);
             
             // WIP, extract the array if task2 is asked!
             if (checkTaskNumber == 2) {
                 currentTaskArgs = parser1.extractString(response,"arguments");
+                currentTaskArgs = response.toString();
                 System.out.println("ARGS STORED:" + currentTaskArgs);
             }
         }

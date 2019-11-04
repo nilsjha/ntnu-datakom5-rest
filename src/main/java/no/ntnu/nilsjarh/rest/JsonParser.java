@@ -60,10 +60,10 @@ public class JsonParser {
     /**
      * WIP get to return the arguments for store in Task runner
      */
-    public String[] extractStringArray(String jsonInput, String key) {
-        JSONObject stringJsonObj = new JSONObject(jsonInput);
-        return stringJsonObj.getEnum(String[Array], key);
-    }
+   // public String[] extractStringArray(String jsonInput, String key) {
+    //    JSONObject stringJsonObj = new JSONObject(jsonInput);
+    //    return stringJsonObj.getEnum(String[Array], key);
+    //}
     
     /**
      *  Sorts the JSON elements in an encoded string
