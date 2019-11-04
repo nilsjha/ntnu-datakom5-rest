@@ -2,9 +2,21 @@ package no.ntnu.nilsjarh.rest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.Random;
 
 public class JsonParser {
+    
+    /**
+     *  Creates a json object from a json.encoded string
+     * @param json JSON-encoded string
+     * @return The returned object
+     */
+    public JSONObject generateJsonObject(String json) {
+        JSONObject obj = new JSONObject(json);
+        return obj;
+    }
+    
     /**
      *  Get int from specified key in JSON-encoded string
      * @param jsonInput The JSON-encoded string
@@ -79,7 +91,6 @@ public class JsonParser {
     public String generateDemoAbcNumbers() {
         Random randA = new Random();
         Random randB = new Random();
-        Random randC = new Random();
         int a = randA.nextInt((100) +1);
         int b = randB.nextInt((100) +1);
         
