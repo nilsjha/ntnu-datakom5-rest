@@ -69,14 +69,6 @@ public class JsonParser {
     }
     
     /**
-     * WIP get to return the arguments for store in Task runner
-     */
-   // public String[] extractStringArray(String jsonInput, String key) {
-    //    JSONObject stringJsonObj = new JSONObject(jsonInput);
-    //    return stringJsonObj.getEnum(String[Array], key);
-    //}
-    
-    /**
      *  Sorts the JSON elements in an encoded string
      * @param jsonInput String with JSON-encoded elements
      * @return String with the JSON elements sorted alphabetically
@@ -99,7 +91,6 @@ public class JsonParser {
     public String generateDemoAbcNumbers() {
         Random randA = new Random();
         Random randB = new Random();
-        Random randC = new Random();
         int a = randA.nextInt((100) +1);
         int b = randB.nextInt((100) +1);
         
