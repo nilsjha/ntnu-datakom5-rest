@@ -109,6 +109,16 @@ public class TaskRunner {
         }
     }
     
+    /**
+     * STEP 4 - Crack pin code
+     */
+    public void step4crackPin() {
+        if (this.askForTask(4)) {
+            JSONObject jsonObj = new JSONObject();
+            System.out.print("MD5 hash");
+            System.out.println(currentTaskArgs.toString());
+        }
+    }
     
     /**
      *  This method asks the server to solve a task, and then verifies the
