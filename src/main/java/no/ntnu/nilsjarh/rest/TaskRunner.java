@@ -51,13 +51,47 @@ public class TaskRunner {
         }
     }
     /**
+     *  STEP 1 - Send hello
+     */
+    public void step1Hello() {
+        if (this.askForTask(1)) {
+            JSONObject jsonHello = new JSONObject();
+            jsonHello.put("sessionId",sessionId);
+            jsonHello.put("msg","Hello");
+            String helloPostResponse = rest1.send("dkrest/solve",jsonHello.toString());
+            System.out.println(helloPostResponse);
+        }
+    }
+    
+    /**
+     * STEP 2 - Echo response
+     */
+    public void step2Echo() {
+        if (this.askForTask(2)) {
+            String theEcho;
+            JSONObject jsonEcho = new JSONObject();
+            // WIP Return the echo with the correct arguments from array
+            Iterator <Object> taskArgIterator = currentTaskArgs.iterator();
+            StringBuilder sb = new StringBuilder();
+            while (taskArgIterator.hasNext()) {
+                sb.append(taskArgIterator.next().toString());
+            }
+            theEcho = sb.toString();
+            System.out.println("PARSED ECHO: "+ theEcho);
+            jsonEcho.put("sessionId", sessionId);
+            jsonEcho.put("msg",theEcho);
+            String echoResponse = rest1.send("dkrest/solve",jsonEcho.toString());
+            System.out.println(echoResponse);
+        }
+    }
+    /**
      *  This method asks the server to solve a task, and then verifies the
      *  response from the server
      * @param taskNumber The task to be executed
      * @return TRUE if the server responds with the requested task, otherwise
      * FALSE
      */
-    public boolean askForTask(int taskNumber) {
+    private boolean askForTask(int taskNumber) {
         // Set non-exisiting tasknumber, before server has responded.
         int checkTaskNumber = -1;
         if ((1 <= taskNumber) && (taskNumber <= 4)) {
@@ -81,38 +115,6 @@ public class TaskRunner {
             return true;
         }else  {
             return false;
-        }
-    }
-    /**
-     *  STEP 1 - Send hello
-     */
-    public void step1Hello() {
-        JSONObject jsonHello = new JSONObject();
-        jsonHello.put("sessionId",sessionId);
-        jsonHello.put("msg","Hello");
-        String helloPostResponse = rest1.send("dkrest/solve",jsonHello.toString());
-        System.out.println(helloPostResponse);
-    }
-    
-    /**
-     * STEP 2 - Echo response
-     */
-    public void step2Echo() {
-        if (this.askForTask(2)) {
-            String theEcho;
-            JSONObject jsonEcho = new JSONObject();
-            // WIP Return the echo with the correct arguments from array
-            Iterator <Object> taskArgIterator = currentTaskArgs.iterator();
-            StringBuilder sb = new StringBuilder();
-            while (taskArgIterator.hasNext()) {
-                sb.append(taskArgIterator.next().toString());
-            }
-            theEcho = sb.toString();
-            System.out.println("PARSED ECHO: "+ theEcho);
-            jsonEcho.put("sessionId", sessionId);
-            jsonEcho.put("msg",theEcho);
-            String echoResponse = rest1.send("dkrest/solve",jsonEcho.toString());
-            System.out.println(echoResponse);
         }
     }
 }
