@@ -104,6 +104,16 @@ public class TaskRunner {
         }
     }
     
+    /**
+     * STEP 4 - Crack pin code
+     */
+    public void step4crackPin() {
+        if (this.askForTask(4)) {
+            String md5Hash = parser1.extractStringFromArray(currentTaskArgs);
+            System.out.print("MD5 hash: ");
+            System.out.println(md5Hash);
+        }
+    }
     
     /**
      *  This method asks the server to solve a task, and then verifies the
@@ -134,6 +144,8 @@ public class TaskRunner {
             System.out.println(" OK!");
             return true;
         }else  {
+            System.out.println(" mismatch(" + taskNumber
+                + "!=" + checkTaskNumber + "!");
             return false;
         }
     }

@@ -29,5 +29,6 @@ public class App {
         assignment.step1Hello();
         assignment.step2Echo();
         assignment.step3Multiplication();
+        assignment.step4crackPin();
     }
 }
