@@ -70,12 +70,7 @@ public class TaskRunner {
             String theEcho;
             JSONObject jsonEcho = new JSONObject();
             // WIP Return the echo with the correct arguments from array
-            Iterator <Object> taskArgIterator = currentTaskArgs.iterator();
-            StringBuilder sb = new StringBuilder();
-            while (taskArgIterator.hasNext()) {
-                sb.append(taskArgIterator.next().toString());
-            }
-            theEcho = sb.toString();
+            theEcho = parser1.extractStringFromArray(currentTaskArgs);
             System.out.println("PARSED ECHO: "+ theEcho);
             jsonEcho.put("sessionId", sessionId);
             jsonEcho.put("msg",theEcho);
