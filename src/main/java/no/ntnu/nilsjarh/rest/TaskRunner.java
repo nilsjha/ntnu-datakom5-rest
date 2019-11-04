@@ -3,6 +3,9 @@ package no.ntnu.nilsjarh.rest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 
 /**
@@ -112,7 +115,47 @@ public class TaskRunner {
             String md5Hash = parser1.extractStringFromArray(currentTaskArgs);
             System.out.print("MD5 hash: ");
             System.out.println(md5Hash);
+   
+            String correctPin = "";
+            int d1;
+            int d2;
+            int d3;
+            int d4;
+   
+            try {
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                for (d1 = 0; d1 < 10; d1++) {
+                    for (d2 = 0; d2 < 10; d2++) {
+                        for (d3 = 0; d3 < 10; d3++) {
+                            for (d4 = 0; d4 < 10; d4++) {
+                                String pin = Integer.toString(d1)
+                                        +Integer.toString(d2)
+                                        +Integer.toString(d3)
+                                        +Integer.toString(d4);
+                                md.update(pin.getBytes());
+                                byte[] digest = md.digest();
+                                String foundHash = DatatypeConverter
+                                    .printHexBinary(digest).toLowerCase();
+                                System.out.print(pin + ",");
+                                System.out.println(foundHash);
+                                if (md5Hash.equals(foundHash)) {
+                                   System.out.print("OK");
+                                   correctPin = pin;
+                               }
+                            }
+                
+                        }
+                    }
+        
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+                if (correctPin.equals("")) {
+                    System.out.println("No match!");
+            }
         }
+        
     }
     
     /**
