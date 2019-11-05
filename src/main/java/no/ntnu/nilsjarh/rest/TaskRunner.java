@@ -187,12 +187,39 @@ public class TaskRunner {
         
         System.out.println("BONUSRESPONSE:");
         System.out.println(response);
-        JSONObject secretObj = new JSONObject();
         double sqNumber = 4064256;
         sqNumber = sqrt(sqNumber);
         int convertedInt = (int) sqNumber;
+        
+        askForTask(convertedInt);
+        // Iterator to iterate trough the elements
+        Iterator<Object> it = currentTaskArgs.iterator();
+        String[] ipaddrCalc = {"",""};
+        int ipaddrCalcNum = 0;
+        while (it.hasNext()) {
+            ipaddrCalc[ipaddrCalcNum] = it.next().toString();
+            System.out.println(ipaddrCalc[ipaddrCalcNum]);
+            ipaddrCalcNum++;
+        }
+       
+        // IP address to pos 0, subnet to pos 1
+        String ipAddr = ipaddrCalc[0];
+        // Split the oclets
+        String ipAddrOclet[] = ipAddr.split("\\.");
+        int oclet0 = Integer.parseInt(ipAddrOclet[0]);
+        int oclet1 = Integer.parseInt(ipAddrOclet[1]);
+        int oclet2 = Integer.parseInt(ipAddrOclet[2]);
+        int oclet3 = Integer.parseInt(ipAddrOclet[3]);
+        // QUICKFIX : Set oclet3 to first host adress
+        oclet3 = oclet3+1;
+        
+        // Merege the IP address
+        String mergedAddress = oclet0 + "." + oclet1
+            + "." + oclet2 + "." + oclet3;
+        
+        JSONObject secretObj = new JSONObject();
         secretObj.put("sessionId",sessionId);
-        secretObj.put("result",convertedInt);
+        secretObj.put("ip",mergedAddress);
         System.out.println(secretObj.toString());
         String stepBonusResponse = rest1.send("dkrest/solve",secretObj.toString());
         System.out.println(stepBonusResponse);
