@@ -206,10 +206,10 @@ public class TaskRunner {
         String subnetAddr = ipaddrCalc[1];
         // Split the oclets
         String subnetAddrOclet[] = subnetAddr.split("\\.");
-        int oclet0 = Integer.parseInt(subnetAddrOclet[0]);
-        int oclet1 = Integer.parseInt(subnetAddrOclet[1]);
-        int oclet2 = Integer.parseInt(subnetAddrOclet[2]);
-        int oclet3 = Integer.parseInt(subnetAddrOclet[3]);
+        int subnetOclet0 = Integer.parseInt(subnetAddrOclet[0]);
+        int subnetOclet1 = Integer.parseInt(subnetAddrOclet[1]);
+        int subnetOclet2 = Integer.parseInt(subnetAddrOclet[2]);
+        int subnetOclet3 = Integer.parseInt(subnetAddrOclet[3]);
         
         // IP address to pos 0, subnet to pos 1
         String ipAddr = ipaddrCalc[0];
