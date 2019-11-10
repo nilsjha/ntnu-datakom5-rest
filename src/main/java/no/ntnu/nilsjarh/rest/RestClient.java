@@ -69,7 +69,7 @@ public class RestClient {
                 boolean cts = true;
                 String response = null;
                 // check that all of the required elements are ready for tx
-                if (this.endpointUrl == null || jsonPayload == "" || jsonPayload=="") {
+                if (this.endpointUrl == null || jsonPayload.equals("")) {
                         System.err.println("Endpoint URL or JSON not set, " +
                             "ignoring...");
                         cts = false;
