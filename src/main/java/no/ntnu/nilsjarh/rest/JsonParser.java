@@ -104,10 +104,9 @@ public class JsonParser {
      * @return JSON-string with a,b & c keys with random values.
      */
     public String generateDemoAbcNumbers() {
-        Random randA = new Random();
-        Random randB = new Random();
-        int a = randA.nextInt((100) +1);
-        int b = randB.nextInt((100) +1);
+        Random rand = new Random();
+        int a = rand.nextInt((100) +1);
+        int b = rand.nextInt((100) +1);
         
         JSONObject abcRandJson = new JSONObject();
         abcRandJson.put("a",a);
