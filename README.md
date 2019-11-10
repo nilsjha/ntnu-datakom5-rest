@@ -3,4 +3,4 @@
 Testing this release with sonarqube server running with Jenkins
 
 ### Release 1.0.1
-Small bugfixes
+Small bugfixes, testing detection of develop branch webhook
