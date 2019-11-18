@@ -118,6 +118,7 @@ public class TaskRunner {
             System.out.print("MD5 hash: ");
             System.out.println(md5Hash);
    
+            // Allocate storage for correct PIN
             String correctPin = "";
             int d1;
             int d2;
@@ -138,8 +139,6 @@ public class TaskRunner {
                                 byte[] digest = md.digest();
                                 String foundHash = DatatypeConverter
                                     .printHexBinary(digest).toLowerCase();
-                                //System.out.print(pin + ",");
-                                //System.out.println(foundHash);
                                 if (md5Hash.equals(foundHash)) {
                                    System.out.print("OK hash:" + foundHash +
                                        ";" + pin);
