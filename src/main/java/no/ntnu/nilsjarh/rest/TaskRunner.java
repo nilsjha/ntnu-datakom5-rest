@@ -1,3 +1,8 @@
+/**  RestAPI Example in Java  Copyright (C) 2019 Nils-Jarle Haugen
+ *   This program comes with ABSOLUTELY NO WARRANTY
+ *   This is free software, and you are welcome to redistribute it
+ *   under certain conditions; type `show c' for details.
+ */
 package no.ntnu.nilsjarh.rest;
 
 import org.json.JSONArray;
@@ -118,6 +123,7 @@ public class TaskRunner {
             System.out.print("MD5 hash: ");
             System.out.println(md5Hash);
    
+            // Allocate storage for correct PIN
             String correctPin = "";
             int d1;
             int d2;
@@ -138,8 +144,6 @@ public class TaskRunner {
                                 byte[] digest = md.digest();
                                 String foundHash = DatatypeConverter
                                     .printHexBinary(digest).toLowerCase();
-                                //System.out.print(pin + ",");
-                                //System.out.println(foundHash);
                                 if (md5Hash.equals(foundHash)) {
                                    System.out.print("OK hash:" + foundHash +
                                        ";" + pin);
@@ -201,28 +205,44 @@ public class TaskRunner {
             System.out.println(ipaddrCalc[ipaddrCalcNum]);
             ipaddrCalcNum++;
         }
-       
-        // IP address to pos 0, subnet to pos 1
-        String ipAddr = ipaddrCalc[0];
-        // Split the oclets
-        String ipAddrOclet[] = ipAddr.split("\\.");
-        int oclet0 = Integer.parseInt(ipAddrOclet[0]);
-        int oclet1 = Integer.parseInt(ipAddrOclet[1]);
-        int oclet2 = Integer.parseInt(ipAddrOclet[2]);
-        int oclet3 = Integer.parseInt(ipAddrOclet[3]);
-        // QUICKFIX : Set oclet3 to first host adress
-        oclet3 = oclet3+1;
-        
-        // Merege the IP address
-        String mergedAddress = oclet0 + "." + oclet1
-            + "." + oclet2 + "." + oclet3;
-        
-        JSONObject secretObj = new JSONObject();
-        secretObj.put("sessionId",sessionId);
-        secretObj.put("ip",mergedAddress);
-        System.out.println(secretObj.toString());
-        String stepBonusResponse = rest1.send("dkrest/solve",secretObj.toString());
-        System.out.println(stepBonusResponse);
+    
+        // Try to parse the address to an array
+        try {
+            // The subnet mask
+            String subnetAddr = ipaddrCalc[1];
+            // Split the oclets
+            String subnetAddrOclet[] = subnetAddr.split("\\.");
+            int subnetOclet0 = Integer.parseInt(subnetAddrOclet[0]);
+            int subnetOclet1 = Integer.parseInt(subnetAddrOclet[1]);
+            int subnetOclet2 = Integer.parseInt(subnetAddrOclet[2]);
+            int subnetOclet3 = Integer.parseInt(subnetAddrOclet[3]);
+    
+            // IP address to pos 0, subnet to pos 1
+            String ipAddr = ipaddrCalc[0];
+            // Split the oclets
+            String ipAddrOclet[] = ipAddr.split("\\.");
+            int oclet0 = Integer.parseInt(ipAddrOclet[0]);
+            int oclet1 = Integer.parseInt(ipAddrOclet[1]);
+            int oclet2 = Integer.parseInt(ipAddrOclet[2]);
+            int oclet3 = Integer.parseInt(ipAddrOclet[3]);
+            // First host address is always available, even in
+            // an /32-network with 2^0 = 1 host address
+            oclet3 = oclet3+1;
+    
+            // Merege the IP address
+            String mergedAddress = oclet0 + "." + oclet1
+                + "." + oclet2 + "." + oclet3;
+    
+            JSONObject secretObj = new JSONObject();
+            secretObj.put("sessionId",sessionId);
+            secretObj.put("ip",mergedAddress);
+            System.out.println(secretObj.toString());
+            String stepBonusResponse = rest1.send("dkrest/solve",secretObj.toString());
+            System.out.println(stepBonusResponse);
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Unable to parse address");
+        }
     }
     
     /**

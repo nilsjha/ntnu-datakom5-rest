@@ -1,9 +1,15 @@
+
+/**  RestAPI Example in Java  Copyright (C) 2019 Nils-Jarle Haugen
+ *   This program comes with ABSOLUTELY NO WARRANTY
+ *   This is free software, and you are welcome to redistribute it
+ *   under certain conditions; type `show c' for details.
+ */
+
 package no.ntnu.nilsjarh.rest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.Random;
 
