@@ -10,3 +10,6 @@ Small bugfixes, testing detection of develop branch webhook
 
 ### Release 1.0.2 
 Final release, smaller cleanup of unused imports and comments for tidyness
+
+### Release 1.0.1.1
+Added licences and COPYING for final release
